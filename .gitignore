@@ -1,0 +1,17 @@
+# Compiled class files and output folders
+/target/
+/bin/
+
+# Eclipse IDE specific files
+.classpath
+.project
+.settings/
+*.launch
+*.log
+
+# Dependency directories (optional, but good if you didn't configure Maven correctly)
+/lib/
+
+# OS specific files
+.DS_Store
+Thumbs.db
