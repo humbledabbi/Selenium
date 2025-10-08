@@ -15,10 +15,11 @@ public class LoginPage {
 		this.driver = driver;
 	}
 	
-	public void login(String user, String pass) {
-		driver.findElement(user_name).sendKeys(user);
-		driver.findElement(password).sendKeys(pass);
+	public InventoryPage login(String user, String pass) {
+		driver.findElement(user_name).sendKeys(user); //standard_user
+		driver.findElement(password).sendKeys(pass); //secret_sauce
 		driver.findElement(login).click();
+		return new InventoryPage(this.driver);
 	}
 		
 	
