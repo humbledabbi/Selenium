@@ -1,0 +1,96 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.plugins.office365connector.WebhookJobProperty plugin="Office-365-Connector@5.2.0">
+      <webhooks>
+        <jenkins.plugins.office365connector.Webhook>
+          <name>TestNG Report</name>
+          <url>https://liveplymouthac.webhook.office.com/webhookb2/c673a371-ceab-4b77-a8f1-6b7d4379b76a@5437e7eb-83fb-4d1a-bfd3-bb247e061bf1/IncomingWebhook/70db00a4bef84d8eb7d36e39742ea304/6a175c94-04ad-48bb-acba-09f7176dd5d9/V27ZsqJFOK3TvT795Aa2my2clvpKagvMbIDWF7UziV4ZI1</url>
+          <startNotification>false</startNotification>
+          <notifySuccess>true</notifySuccess>
+          <notifyAborted>false</notifyAborted>
+          <notifyNotBuilt>false</notifyNotBuilt>
+          <notifyUnstable>true</notifyUnstable>
+          <notifyFailure>true</notifyFailure>
+          <notifyBackToNormal>true</notifyBackToNormal>
+          <notifyRepeatedFailure>false</notifyRepeatedFailure>
+          <timeout>30000</timeout>
+          <adaptiveCards>false</adaptiveCards>
+          <macros class="empty-list"/>
+          <factDefinitions class="empty-list"/>
+        </jenkins.plugins.office365connector.Webhook>
+      </webhooks>
+    </jenkins.plugins.office365connector.WebhookJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>BROWSER_NAME</name>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>chrome</string>
+              <string>safari</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@5.8.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/humbledabbi/Selenium</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="empty-list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean test -DbrowserName=${BROWSER_NAME}</targets>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <injectBuildVariables>false</injectBuildVariables>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>**</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+      <followSymlinks>false</followSymlinks>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1363.v2ea_b_461a_1480">
+      <testResults>**/target/surefire-reports/*.xml</testResults>
+      <stdioRetention>ALL</stdioRetention>
+      <keepProperties>true</keepProperties>
+      <keepTestNames>true</keepTestNames>
+      <healthScaleFactor>1.0</healthScaleFactor>
+      <allowEmptyResults>true</allowEmptyResults>
+      <skipPublishingChecks>false</skipPublishingChecks>
+      <checksName></checksName>
+      <skipMarkingBuildUnstable>true</skipMarkingBuildUnstable>
+      <skipOldReports>false</skipOldReports>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
+  <buildWrappers/>
+</project>
